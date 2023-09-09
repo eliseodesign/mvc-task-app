@@ -2,7 +2,56 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Tus Tareas</h2>
+
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Completada</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+@section Scripts{
+
+    <script>
+        const url = "Home/Lista"
+
+        fetch(url)
+            .then(response => {
+                // Verificar si la respuesta de la API es exitosa (código de estado 200)
+                if (!response.ok) {
+                    throw new Error('La solicitud no fue exitosa');
+                }
+                // Parsear la respuesta JSON
+                return response.json();
+            })
+            .then(data => {
+                // Manejar los datos recibidos de la API
+                console.log('Datos recibidos:', data);
+
+                data.forEach(t => {
+                    $("#table tbody").append(
+                        $("<tr>").html(`
+                          <td scope="row"> ${t.id} </td>
+                          <td scope="row"> ${t.nombre} </td>
+                          <td scope="row"> ${t.descripcion} </td>
+                          <td scope="row"> ${t.completada ? "si" : "no"} </td>
+
+                        `)
+                    )
+                })
+
+            })
+            .catch(error => {
+                // Manejar errores de la solicitud
+                console.error('Error:', error);
+            });
+    </script>
+}

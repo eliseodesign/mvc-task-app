@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TodoApp.BLL.Service;
+using TodoApp.EN;
+using TodoApp.EN.ViewModels;
 using TodoApp.UI.Models;
 
 namespace TodoApp.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ITareaService _tareaService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ITareaService tareaService)
         {
-            _logger = logger;
+            _tareaService = tareaService;
         }
 
         public IActionResult Index()
@@ -18,9 +21,28 @@ namespace TodoApp.UI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Listar()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Lista()
+        {
+            IQueryable<Tarea> queryTarea = await _tareaService.ObtenerTodos();
+
+            List<MVTarea> tareas = queryTarea
+                .Select(t => new MVTarea()
+                {
+                    Id = t.Id,
+                    Nombre = t.Nombre,
+                    Descripcion = t.Descripcion,
+                    FechaRegistro = t.FechaRegistro.Value.ToString("dd/MM/yyyyy"),
+                    Completada = t.Completada
+
+                }).ToList();
+
+            return StatusCode(StatusCodes.Status200OK, tareas);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
