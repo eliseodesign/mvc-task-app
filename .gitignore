@@ -1,0 +1,50 @@
+# Carpeta binaria generada por Visual Studio
+bin/
+obj/
+
+# Carpeta generada por Rider (IDE de JetBrains)
+.idea/
+
+# Dependencias de NuGet
+## Excluir todo el directorio "packages"
+packages/
+
+# Ficheros de usuario y configuración
+*.suo
+*.user
+*.sln.docstates
+
+# Carpeta local de caché de NuGet
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.swp
+
+# Archivos de compilación
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Aa][Rr][Mm]_x64/
+[Aa][Rr][Mm]_x86/
+[Bb][Ii][Nn]/
+[Oo][Bb][Jj]/
+[Ll][Oo][Gg][Ss]/
+
+# Carpeta local de Roslyn
+roslyn_local/
+# Carpeta local de Rider
+.idea/
+.ideaCodeStyles/
+
+# Carpeta local de Visual Studio
+.vscode/
+.vs/
+
+# Carpeta de archivos de migración de Entity Framework
+**/Migrations/
+**/Data/
