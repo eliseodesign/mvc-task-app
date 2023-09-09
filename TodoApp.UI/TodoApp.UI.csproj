@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.BLL\TodoApp.BLL.csproj" />
+    <ProjectReference Include="..\TodoApp.EN\TodoApp.EN.csproj" />
+  </ItemGroup>
+
 </Project>
