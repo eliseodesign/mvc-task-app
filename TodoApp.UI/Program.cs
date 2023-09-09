@@ -1,6 +1,8 @@
 using TodoApp.DAL.DataContext;
 using Microsoft.EntityFrameworkCore;
-
+using TodoApp.DAL.Repositories;
+using TodoApp.EN;
+using TodoApp.BLL.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddDbContext<MvcTodoContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"));
 });
+
+builder.Services.AddScoped<IGenericRepository<Tarea>, TareaRepository>();
+builder.Services.AddScoped<ITareaService, TareaService>();
 
 var app = builder.Build();
 

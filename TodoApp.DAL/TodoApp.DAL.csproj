@@ -18,4 +18,8 @@
     <Folder Include="DataContext\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.EN\TodoApp.EN.csproj" />
+  </ItemGroup>
+
 </Project>
