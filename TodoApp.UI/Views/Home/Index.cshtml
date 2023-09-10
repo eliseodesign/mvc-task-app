@@ -10,20 +10,31 @@
             <th scope="col">#</th>
             <th scope="col">Titulo</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Completada</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody>
-
+        <!--INYECTO EL CONTENIDO-->
     </tbody>
 </table>
+
+
+
+
 
 @section Scripts{
 
     <script>
-        const url = "Home/Lista"
+        const url = "Home"
 
-        fetch(url)
+        function deleteTarea(id){
+            fetch(`${url}/Delete`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                body: JSON.stringify(id)
+            })
             .then(response => {
                 // Verificar si la respuesta de la API es exitosa (código de estado 200)
                 if (!response.ok) {
@@ -36,22 +47,68 @@
                 // Manejar los datos recibidos de la API
                 console.log('Datos recibidos:', data);
 
-                data.forEach(t => {
-                    $("#table tbody").append(
-                        $("<tr>").html(`
-                          <td scope="row"> ${t.id} </td>
-                          <td scope="row"> ${t.nombre} </td>
-                          <td scope="row"> ${t.descripcion} </td>
-                          <td scope="row"> ${t.completada ? "si" : "no"} </td>
-
-                        `)
-                    )
-                })
+                if(data.success){
+                    alert("Eliminado")
+                    loadData()
+                }
+                else{
+                    alert("Error al eliminar")
+                }
 
             })
             .catch(error => {
                 // Manejar errores de la solicitud
                 console.error('Error:', error);
             });
+        }
+
+        function toggleState(id){
+            alert(id)
+        }
+
+        function loadData(){
+            fetch(`${url}/Lista`)
+                .then(response => {
+                    // Verificar si la respuesta de la API es exitosa (código de estado 200)
+                    if (!response.ok) {
+                        throw new Error('La solicitud no fue exitosa');
+                    }
+                    // Parsear la respuesta JSON
+                    return response.json();
+                })
+                .then(data => {
+                    // Manejar los datos recibidos de la API
+                    console.log('Datos recibidos:', data);
+
+                    $("#table tbody").html("")
+
+                    data.forEach(t => {
+                        $("#table tbody").append(
+                            $("<tr>").html(`
+                              <td scope="row"> ${t.id} </td>
+                              <td scope="row"> ${t.nombre} </td>
+                              <td scope="row"> ${t.descripcion} </td>
+                              <td scope="row">
+
+                              <!-- <button onclick='toggleState("${t.id}")' type="button" class="btn btn-outline-${t.completada ? "warning" : "primary"}"> ${t.completada ? "Marcar como imcompleta" : "Marcar como completada"} </button> -->
+                              <button onclick='deleteTarea("${t.id}")' type="button" class="btn btn-outline-danger">Eliminar</button> 
+                             </td>
+                         
+
+                            `)
+                        )
+                    })
+
+                })
+                .catch(error => {
+                    // Manejar errores de la solicitud
+                    console.error('Error:', error);
+                });
+        }
+
+        loadData()
+
+
+            
     </script>
 }
