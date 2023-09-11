@@ -71,6 +71,15 @@ namespace TodoApp.UI.Controllers
             return StatusCode(StatusCodes.Status200OK, new { success = result });
         }
 
+        [HttpPatch]
+        public async Task<IActionResult> CambiarEstado([FromBody] int Id)
+        {
+            bool result = await _tareaService.CambiarEstado(Id);
+
+
+            return StatusCode(StatusCodes.Status200OK, new { success = result });
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

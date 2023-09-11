@@ -64,7 +64,36 @@
         }
 
         function toggleState(id){
-            alert(id)
+            fetch(`${url}/CambiarEstado`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                body: JSON.stringify(id)
+            })
+                .then(response => {
+                    // Verificar si la respuesta de la API es exitosa (código de estado 200)
+                    if (!response.ok) {
+                        throw new Error('La solicitud no fue exitosa');
+                    }
+                    // Parsear la respuesta JSON
+                    return response.json();
+                })
+                .then(data => {
+                    // Manejar los datos recibidos de la API
+                    console.log('Datos recibidos:', data);
+
+                    if (data.success) {
+                        loadData()
+                    }
+                    else {
+                    }
+
+                })
+                .catch(error => {
+                    // Manejar errores de la solicitud
+                    console.error('Error:', error);
+                });
         }
 
         function loadData(){
@@ -92,7 +121,7 @@
                               <td scope="row"> ${t.fechaRegistro} </td>
                               <td scope="row">
 
-                              <!-- <button onclick='toggleState("${t.id}")' type="button" class="btn btn-outline-${t.completada ? "warning" : "primary"}"> ${t.completada ? "Marcar como imcompleta" : "Marcar como completada"} </button> -->
+                              <button onclick='toggleState("${t.id}")' type="button" class="btn btn-outline-${t.completada ? "warning" : "primary"}"> ${t.completada ? "Marcar como imcompleta" : "Marcar como completada"} </button> 
                               <button onclick='deleteTarea("${t.id}")' type="button" class="btn btn-outline-danger">Eliminar</button> 
                              </td>
                          

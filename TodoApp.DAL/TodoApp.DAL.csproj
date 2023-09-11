@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="DataContext\" />
+    <Folder Include="SQL\" />
   </ItemGroup>
 
   <ItemGroup>
