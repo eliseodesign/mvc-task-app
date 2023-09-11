@@ -11,6 +11,7 @@ namespace TodoApp.DAL.Repositories
         Task<bool> Insertar(TEntityModel model);
         Task<bool> Eliminar(int id);
         Task<IQueryable<TEntityModel>> ObtenerTodos();
+        Task<bool> CambiarEstado(int id);
 
     }
 }

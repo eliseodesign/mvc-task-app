@@ -12,5 +12,6 @@ namespace TodoApp.BLL.Service
         Task<bool> Insertar(Tarea model);
         Task<bool> Eliminar(int id);
         Task<IQueryable<Tarea>> ObtenerTodos();
+        Task<bool> CambiarEstado(int id);
     }
 }

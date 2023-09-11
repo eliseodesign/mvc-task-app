@@ -36,5 +36,34 @@ namespace TodoApp.DAL.Repositories
             IQueryable<Tarea> query = _dbContext.Tareas;
             return query;
         }
+
+        public async Task<bool> CambiarEstado(int id)
+        {
+            try
+            {
+                // Obtener la tarea por su ID
+                Tarea tarea = await _dbContext.Tareas.FindAsync(id);
+
+                if (tarea == null)
+                {
+                    // Si la tarea no se encuentra, retorna falso (no se pudo cambiar el estado)
+                    return false;
+                }
+
+                // Cambiar el estado de Completada (si es true, cambiará a false, y viceversa)
+                tarea.Completada = !tarea.Completada;
+
+                // Guardar los cambios en la base de datos
+                await _dbContext.SaveChangesAsync();
+
+                // Retorna true (cambio de estado exitoso)
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción aquí y retornar false en caso de error
+                return false;
+            }
+        }
     }
 }

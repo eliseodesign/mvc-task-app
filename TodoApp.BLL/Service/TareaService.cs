@@ -16,6 +16,12 @@ namespace TodoApp.BLL.Service
         {
             _repo = repo;
         }
+
+        public Task<bool> CambiarEstado(int id)
+        {
+            return _repo.CambiarEstado(id);
+        }
+
         public async Task<bool> Eliminar(int id)
         {
             return await _repo.Eliminar(id);
